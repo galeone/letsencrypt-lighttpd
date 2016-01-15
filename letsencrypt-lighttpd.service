@@ -1,0 +1,6 @@
+[Unit]
+Description=Letsencrypt manual renewal
+
+[Service]
+Type=oneshot
+ExecStart=/home/nessuno/letsencrypt-lighttpd/renew.sh
