@@ -9,7 +9,7 @@ This script automatize the renewal process for certificates issued by Let's Encr
 Long story short, run as root:
 
 ```bash
-letsencrypt certonly --manual
+certbot certonly --manual
 ```
 
 Follow the steps required for every domain (and subdomain) and then for every domain do:

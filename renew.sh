@@ -18,7 +18,7 @@ fi
 
 
 for domain in "${domains[@]}"; do
-    /usr/bin/letsencrypt certonly --agree-tos --renew-by-default --email $email --webroot -w $w_root$domain -d $domain
+    /usr/bin/certbot certonly --agree-tos --renew-by-default --email $email --webroot -w $w_root$domain -d $domain
     cat /etc/letsencrypt/live/$domain/privkey.pem  /etc/letsencrypt/live/$domain/cert.pem > ssl.pem
     cp ssl.pem /etc/lighttpd/$domain.pem
     cp /etc/letsencrypt/live/$domain/fullchain.pem /etc/lighttpd/
