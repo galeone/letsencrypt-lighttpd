@@ -1,8 +1,8 @@
 [Unit]
-Description=Monthly renewal on letsencrypt's certificates
+Description=Daily renewal on letsencrypt's certificates
 
 [Timer]
-OnCalendar=monthly
+OnActiveSec=12h
 Persistent=true
 
 [Install]
