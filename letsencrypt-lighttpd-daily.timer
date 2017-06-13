@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily renewal on letsencrypt's certificates
+
+[Timer]
+OnActiveSec=12h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
