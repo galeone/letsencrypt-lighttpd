@@ -77,7 +77,7 @@ After that, you can activate the montly renew:
 
 ```bash
 cp letsencrypt-lighttpd.* /etc/systemd/system/
-systemct enable letsencrypt-lighttpd.timer
+systemctl enable letsencrypt-lighttpd.timer
 ```
 
 That's all.
