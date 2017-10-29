@@ -3,7 +3,7 @@ set -e
 
 # begin configuration
 
-domains=( nerdz.eu )
+domains=( nerdz.eu www.nerdz.eu )
 email=nessuno@nerdz.eu
 w_root=/home/nessuno/
 user=nessuno
@@ -20,7 +20,7 @@ fi
 for domain in "${domains[@]}"; do
     /usr/bin/certbot certonly --agree-tos --renew-by-default \
         --email $email --webroot -w $w_root$domain \
-        -d $domain -d www.$domain
+        -d $domain
     cat /etc/letsencrypt/live/$domain/privkey.pem \
         /etc/letsencrypt/live/$domain/cert.pem \
         > /etc/lighttpd/$domain.pem
