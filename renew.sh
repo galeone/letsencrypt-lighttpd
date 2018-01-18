@@ -2,10 +2,16 @@
 set -eu
 
 # begin configuration
+
+# domain_subdomains syntax: 2 avaialble
+# 1: domain subdomain1 subdomain2 ...
+# 2: subdomain.domain
+
 domain_subdomains=( \
 "nerdz.eu w ww www mobile static" \
 "example.com sub" \
 "otherwebsite.net sub1 sub2" \
+"domain.duckdns.org" \
 )
 email=nessuno@nerdz.eu
 w_root=/home/nessuno/
@@ -25,9 +31,11 @@ for domain_set_string in "${domain_subdomains[@]}"; do
     unset domain_set[0]
 
     all_subdomains="-d $domain"
-    for sub_domain in "${domain_set[@]}"; do
-        all_subdomains="$all_subdomains -d $sub_domain.$domain"
-    done
+    if [ ${#domain_set[@]} -gt 0 ]; then
+        for sub_domain in "${domain_set[@]}"; do
+            all_subdomains="$all_subdomains -d $sub_domain.$domain"
+        done
+    fi
 
     /usr/bin/certbot certonly --agree-tos --renew-by-default \
         --email $email --webroot -w $w_root$domain \
