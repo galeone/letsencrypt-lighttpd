@@ -29,17 +29,26 @@ Therefore, for every virtual host (and for every certificate) my lighttpd.conf l
 
 ```conf
     $SERVER["socket"] == ":443" {
-        ssl.engine = "enable"
+        protocol     = "https://"
+        ssl.engine   = "enable"
+
         ssl.ca-file = "/etc/lighttpd/fullchain.pem"
         ssl.pemfile = "/etc/lighttpd/www.nerdz.eu.pem"
-		ssl.dh-file = "/etc/lighttpd/dhparams.pem"
+	
+	setenv.add-environment = (
+        "HTTPS" => "on"
+        )
+        setenv.add-response-header  = (
+        "Strict-Transport-Security" => "max-age=15768000;"
+        )
         #
         # Mitigate BEAST attack:
         #
         # A stricter base cipher suite. For details see:
         # http://blog.ivanristic.com/2011/10/mitigating-the-beast-attack-on-tls.html
         #
-        ssl.cipher-list = "ECDHE-RSA-CHACHA20-POLY1305 ECDHE-ECDSA-CHACHA20-POLY1305 AES128+EECDH:AES128+EDH:!aNULL:!eNULL"
+        ssl.cipher-list = "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256"
+
         #
         # Make the server prefer the order of the server side cipher suite instead of the client suite.
         # This is necessary to mitigate the BEAST attack (unless you disable all non RC4 algorithms).
@@ -51,6 +60,8 @@ Therefore, for every virtual host (and for every certificate) my lighttpd.conf l
         # This is enabled by default.
         #
         ssl.disable-client-renegotiation = "enable"
+	ssl.ec-curve              = "secp384r1"
+	ssl.use-compression     = "disable"
         #
         # Disable SSLv2 because is insecure
         ssl.use-sslv2= "disable"
