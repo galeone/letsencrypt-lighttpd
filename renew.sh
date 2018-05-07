@@ -46,4 +46,5 @@ for domain_set_string in "${domain_subdomains[@]}"; do
     cp /etc/letsencrypt/live/$domain/fullchain.pem \
        /etc/lighttpd/
     chown -R $user:$group /etc/lighttpd/
+    chmod 600 /etc/lighttpd/*.pem
 done
