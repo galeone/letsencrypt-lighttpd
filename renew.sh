@@ -38,7 +38,7 @@ for domain_set_string in "${domain_subdomains[@]}"; do
     fi
 
     /usr/bin/certbot certonly --agree-tos --renew-by-default \
-        --email $email --webroot -w $w_root$domain \
+        --rsa-key-size 4096 --email $email --webroot -w $w_root$domain \
         $all_subdomains
     cat /etc/letsencrypt/live/$domain/privkey.pem \
         /etc/letsencrypt/live/$domain/cert.pem \
