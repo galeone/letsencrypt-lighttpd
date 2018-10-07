@@ -48,3 +48,13 @@ for domain_set_string in "${domain_subdomains[@]}"; do
     chown -R $user:$group /etc/lighttpd/
     chmod 600 /etc/lighttpd/*.pem
 done
+
+if pgrep -x "lighttpd" > /dev/null
+then
+    systemctl restart lighttpd
+fi
+
+if pgrep -x "nginx" > /dev/null
+then
+    systemctl restart nginx
+fi
